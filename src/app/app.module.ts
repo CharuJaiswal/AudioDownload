@@ -10,8 +10,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpHeaders, HttpClientModule } from "@angular/common/http";
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
+import { Network } from '@ionic-native/network/ngx';
+import { Media, MediaObject } from '@ionic-native/media/ngx';
+import { PlayerComponent } from './Pages/player/player.component';
+import { DownloadlistComponent } from './Pages/downloadlist/downloadlist.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    PlayerComponent,DownloadlistComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule, 
@@ -21,7 +29,7 @@ import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
     ],
   providers: [
     StatusBar,
-    SplashScreen,StreamingMedia,
+    SplashScreen,StreamingMedia,Network,Media,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

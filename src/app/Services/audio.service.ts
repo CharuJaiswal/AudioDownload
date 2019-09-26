@@ -6,9 +6,10 @@ import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-m
   providedIn: 'root'
 })
 export class AudioService {
-url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
-
-
+// url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+url='http://localhost:8080/videos';
+//url='assets/data/vedioData.json'
+// url1='../ ';
   constructor(private streamingMedia: StreamingMedia,public http:HttpClient) { }
    
   getData(){
