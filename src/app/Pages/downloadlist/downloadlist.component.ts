@@ -7,6 +7,8 @@ import { NetworkService } from 'src/app/Services/network.service';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { LoadingController } from '@ionic/angular';
+
 @Component({
   selector: 'app-downloadlist',
   templateUrl: './downloadlist.component.html',
@@ -16,8 +18,11 @@ export class DownloadlistComponent implements OnInit {
   dataArray: any=[];
   Url:any;
   fileTransfer: FileTransferObject;
-  constructor(private transfer: FileTransfer, private file: File,public router: Router,public toastController: ToastController,public network:Network,public networkService:NetworkService,private streamingMedia: StreamingMedia,public alertController: AlertController, public audio:AudioService) {
-this.downloadList();
+  loaderToShow: any;
+ dirs:any;
+  constructor(public loadingController: LoadingController,private transfer: FileTransfer, private file: File,public router: Router,public toastController: ToastController,public network:Network,public networkService:NetworkService,private streamingMedia: StreamingMedia,public alertController: AlertController, public audio:AudioService) {
+// this.downloadList();
+
   }
 
   ngOnInit() {}
@@ -98,7 +103,9 @@ this.downloadList();
   //   });
   }
 
-
+  OfflineVedioDownload(){
+    alert('no offline vedio avalible')
+  }
   stopaudio(){
     this.streamingMedia.stopAudio();
     console.log('the vedio stop');
@@ -128,12 +135,7 @@ this.downloadList();
     }
     }
 
-    abc(){
-      alert('bgvfdgb');
-    }
-
- 
-
+   
 getStoragePath() {
   let file = this.file;
   return this.file
@@ -154,18 +156,102 @@ downloadX=(filename,filePath)=>{
     console.log(url);
     
     this.fileTransfer = this.transfer.create();  
-    this.fileTransfer.download(filePath, this.file.externalRootDirectory  + 'CharuAudioApp/' + filename + '.mp4',true).then((entry) => {  
+    this.fileTransfer.download(filePath, this.file.externalRootDirectory  + 'CharuAudioApp/' + filename + '.mp3',true).then((entry) => {  
+    
       //here logging our success downloaded file path in mobile.  
       console.log("filepath",filePath);
       console.log("filepath",filename);
       
       console.log('download completed: ' + entry.toURL());  
       alert("download completed");
+   
   }, (error) => {  
       //here logging our error its easier to find out what type of error occured.  
       console.log('download failed: ' + error);  
   });  
 })
+
+
 }
+showLoader() {
+  this.loaderToShow = this.loadingController.create({
+    message: 'This Loader will Not AutoHide'
+  }).then((res) => {
+    res.present();
+
+    res.onDidDismiss().then((dis) => {
+      console.log('Loading dismissed!');
+    });
+  });
+  this.hideLoader();
+}
+
+hideLoader() {
+  setTimeout(() => {
+    this.loadingController.dismiss();
+  }, 4000);
+}
+
+
+async presentAlertConfirm1() {
+  const alert = await this.alertController.create({
+    // header: 'Confirm!',
+    message: '<strong>You Want Download/Play Vedio</strong>!!!',
+    buttons: [
+      {
+        text: 'OFline',
+        cssClass: 'secondary',
+        handler: () => {
+          console.log('Confirm Cancel: blah');
+          this.OfflineVedioDownload();
+        }
+      }, {
+        text: 'Play Online',
+        handler: () => {
+          this.vedioPlayOnline();
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
+
+vedioPlayOnline(){
+
+  if(this.networkService.isCurrentlyOnline()){
+    let options: StreamingVideoOptions = {
+      successCallback: () => { console.log('Video played') },
+      errorCallback: (e) => { console.log('Error streaming') },
+      orientation: 'landscape',
+shouldAutoClose: true,
+controls: false
+    };
+    this.streamingMedia.playVideo('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', options);
+    console.log("playOnline");
+    //  setTimeout(()=>{
+    //   this.stopVedio();
+    // },10000);
+  }else{
+   alert("no internet connectivity");
+//  this.presentToastWithOptions();
+  }
+  }
+
+
+   goToDir()
+  {
+   
+    this.file.listDir(this.file.externalRootDirectory,'').then(
+      (list) => {
+
+          this.dirs=list;
+          console.log("dirs",this.dirs);
+          
+      }
+  );
+
+  
+  }
 
 }
