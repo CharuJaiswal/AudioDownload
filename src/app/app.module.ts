@@ -14,7 +14,8 @@ import { Network } from '@ionic-native/network/ngx';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { PlayerComponent } from './Pages/player/player.component';
 import { DownloadlistComponent } from './Pages/downloadlist/downloadlist.component';
-
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { DownloadlistComponent } from './Pages/downloadlist/downloadlist.compone
      HttpClientModule,
     ],
   providers: [
+    FileTransfer, FileTransferObject,File,
     StatusBar,
     SplashScreen,StreamingMedia,Network,Media,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

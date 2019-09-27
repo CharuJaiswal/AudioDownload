@@ -1,21 +1,13 @@
 
-<!-- <div *ngFor="let client of clents ; let i =index;" -->
-    <!-- <div *ngFor="let item of dataArray ; let i =index;" > -->
-  
-  <!-- {{item.title}} -->
-  <!-- {{item.sources}} -->
-<!-- </div> -->
+  <ion-card   *ngFor="let item of dataArray ; let i =index;">
 
-
-
-
-
-  <ion-card  style="height:100%" *ngFor="let item of dataArray ; let i =index;">
-
-      <ion-item>
+      <ion-item >
+        <ion-avatar slot="end">
+          <!-- <a href="#" class="buttonDownload">Download</a> -->
+          <img src="../../assets/images/download.png" (click)="downloadX(item.title ,item.sources)">
+        </ion-avatar>
         
-        
-          <svg  (click)="vedioPlayOnline()" version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="30px" width="30px"
+          <svg   (click)="AudioPlayOnline(item.sources)" version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="30px" width="30px"
           viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
          <path class="stroke-solid" fill="none" stroke="#ddbe72"  d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7
            C97.3,23.7,75.7,2.3,49.9,2.5"/>
@@ -25,3 +17,13 @@
         <ion-label> {{item.title}}</ion-label>
       </ion-item>
     </ion-card>
+
+    <ion-footer >
+      <ion-toolbar>
+        <ion-buttons>
+          <button ion-button  (click)="presentAlertConfirm1()"> Vedios</button>
+          <button ion-button  (click)="  gotoDownloadPage()">downloded </button>
+         
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
