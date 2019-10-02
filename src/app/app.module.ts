@@ -16,20 +16,24 @@ import { PlayerComponent } from './Pages/player/player.component';
 import { DownloadlistComponent } from './Pages/downloadlist/downloadlist.component';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { DownloadsComponent } from './Pages/downloads/downloads.component';
+import { VideoPlayer } from '@ionic-native/video-player/ngx';
+// import { NgxAudioPlayerModule } from 'ngx-audio-player';
 @NgModule({
   declarations: [
     AppComponent,
-    PlayerComponent,DownloadlistComponent
+    PlayerComponent,DownloadlistComponent,DownloadsComponent
   ],
   entryComponents: [],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(),
      AppRoutingModule,
-     HttpClientModule,
+     HttpClientModule, 
+    //  NgxAudioPlayerModule
     ],
   providers: [
-    FileTransfer, FileTransferObject,File,
+    FileTransfer, FileTransferObject,File,VideoPlayer,
     StatusBar,
     SplashScreen,StreamingMedia,Network,Media,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

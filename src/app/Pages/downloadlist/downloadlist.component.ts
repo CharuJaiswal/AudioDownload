@@ -21,7 +21,7 @@ export class DownloadlistComponent implements OnInit {
   loaderToShow: any;
  dirs:any;
   constructor(public loadingController: LoadingController,private transfer: FileTransfer, private file: File,public router: Router,public toastController: ToastController,public network:Network,public networkService:NetworkService,private streamingMedia: StreamingMedia,public alertController: AlertController, public audio:AudioService) {
-// this.downloadList();
+this.downloadList();
 
   }
 
@@ -156,7 +156,7 @@ downloadX=(filename,filePath)=>{
     console.log(url);
     
     this.fileTransfer = this.transfer.create();  
-    this.fileTransfer.download(filePath, this.file.externalRootDirectory  + 'CharuAudioApp/' + filename + '.mp3',true).then((entry) => {  
+    this.fileTransfer.download(filePath, this.file.externalRootDirectory  + 'CharuAudioApp/' + filename + '.mp4',true).then((entry) => {  
     
       //here logging our success downloaded file path in mobile.  
       console.log("filepath",filePath);
@@ -239,19 +239,9 @@ controls: false
   }
 
 
-   goToDir()
-  {
-   
-    this.file.listDir(this.file.externalRootDirectory,'').then(
-      (list) => {
-
-          this.dirs=list;
-          console.log("dirs",this.dirs);
-          
-      }
-  );
-
-  
+  goToDownloads(){
+    this.router.navigateByUrl('downloads')
+    
   }
 
 }
