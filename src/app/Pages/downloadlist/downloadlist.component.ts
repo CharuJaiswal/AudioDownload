@@ -244,4 +244,8 @@ controls: false
     
   }
 
+  goToplayer(){
+    this.router.navigateByUrl('player');
+    
+  }
 }
